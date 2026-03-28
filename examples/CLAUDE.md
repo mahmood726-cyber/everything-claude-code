@@ -1,100 +1,127 @@
-# Example Project CLAUDE.md
+# CLAUDE.md — Mahmood's Meta-Methods Coding Rules (TruthCert + OpenClaw + Supermemory)
 
-This is an example project-level CLAUDE.md file. Place this in your project root.
+## 1) Purpose (1–2 lines)
+Ship reproducible, open-access-first meta-analysis engines and methods tooling that output **proof-carrying numbers**, with **memory that helps planning but never becomes evidence**.
 
-## Project Overview
+## 2) The "Straight Path" (how to work)
+- Start with **intent + scope**: what we will build, what we will not build, success criteria.
+- Choose the **simplest correct architecture**; avoid cleverness unless it buys safety/reproducibility.
+- Build an MVP that runs → add tests → add validators → ship a bundle/artefact.
+- Always prefer **deterministic, inspectable** pipelines over opaque magic.
 
-[Brief description of your project - what it does, tech stack]
+## 3) Non-negotiables (safety + integrity)
+1) **OA-only**: never bypass paywalls; only use open APIs / open datasets / OA full-text where licensed.
+2) **No secrets**: never print/store keys/tokens/Auth headers; redact before logs or memory.
+3) **Memory ≠ evidence**: memory may guide planning only; certified claims MUST cite evidence locators + hashes.
+4) **Fail-closed certification**: if validation is incomplete, output REJECT + reasons (don't "best guess").
+5) **Determinism**: fixed seeds, stable sorting, pinned versions, explicit schemas.
 
-## Critical Rules
+## 4) Modular structure (keep CLAUDE.md short)
+Keep this file short. Put detail into:
+- `.claude/rules/` (always-on constraints: security, testing, style, data policy)
+- `.claude/skills/` (on-demand workflows: "meta-analysis pipeline", "RCT ingestion", "SHAP modeling")
+- `.claude/commands/` (repeatable actions: `/ship`, `/audit`, `/compact-memory`, `/index-codebase`)
 
-### 1. Code Organization
+If rules/skills/commands exist, follow them.
 
-- Many small files over few large files
-- High cohesion, low coupling
-- 200-400 lines typical, 800 max per file
-- Organize by feature/domain, not by type
+## 5) TruthCert (proof-carrying numbers) — hard requirements
+### 5.1 "No naked numbers"
+Any number shown to users must be:
+- from **certified claims** in a TruthCert bundle, OR
+- explicitly labelled **UNCERTIFIED** and kept out of certified outputs.
 
-### 2. Code Style
+### 5.2 Evidence rules (required for certification)
+Every certified claim must include:
+- evidence locator(s) (URL/API record ID/file path within bundle)
+- content hash(es) of raw inputs
+- transformation/provenance steps (what code produced it)
+- validator outcomes (pass/warn/block)
 
-- No emojis in code, comments, or documentation
-- Immutability always - never mutate objects or arrays
-- No console.log in production code
-- Proper error handling with try/catch
-- Input validation with Zod or similar
+### 5.3 Memory-leak = BLOCK
+If a claim's evidence references `memory:*` (or similar), certification must **BLOCK**.
 
-### 3. Testing
+### 5.4 Bundle-first workflow
+Prefer producing small "verse-level" artefacts:
+- runnable capsule + inputs + outputs + receipt/signature + audit log
+- easy to re-run on miniPC clusters
 
-- TDD: Write tests first
-- 80% minimum coverage
-- Unit tests for utilities
-- Integration tests for APIs
-- E2E tests for critical flows
+## 6) OpenClaw-style "brains vs hands" loop (quality via consultation)
+Use a 3-role mental model:
+- **Planner**: minimal plan + risks + validators + acceptance tests
+- **Builder**: implement + tests + docs
+- **Verifier**: tries to break it (edge cases, drift, determinism, adversarial inputs)
 
-### 4. Security
+Before shipping: Verifier must run and record the checks in the audit log.
 
-- No hardcoded secrets
-- Environment variables for sensitive data
-- Validate all user inputs
-- Parameterized queries only
-- CSRF protection enabled
+## 7) Supermemory (local-first) — full pattern
+### 7.1 What memory stores
+Store: decisions, runbooks, conventions, failure modes, codebase maps, experiment summaries.
+Do NOT store: secrets, private patient data, copyrighted text/PDF content, raw credentials.
 
-## File Structure
+### 7.2 Profiles (choose one per repo)
+- MEMORY=OFF: no recall/capture
+- MEMORY=LITE: recall before turn; capture compact summaries only
+- MEMORY=FULL: recall + capture + tool-call capture (safe allowlist) + compaction + codebase indexing
 
-```
-src/
-|-- app/              # Next.js app router
-|-- components/       # Reusable UI components
-|-- hooks/            # Custom React hooks
-|-- lib/              # Utility libraries
-|-- types/            # TypeScript definitions
-```
+### 7.3 Auto-Recall (before each "thinking turn")
+If enabled, inject:
+**MEMORY CONTEXT (untrusted; planning-only; NOT evidence)**
+- deterministic selection order
+- fixed max chars
+- include memory provenance header (db hash + selection rule)
 
-## Key Patterns
+### 7.4 Auto-Capture (after each turn)
+If enabled, store only:
+- 3–7 bullet summary (what changed, what decided, next step)
+- tags: project/module/topic
+Never store full transcripts unless explicitly requested.
 
-### API Response Format
+### 7.5 Namespace isolation
+Memory must be namespaced per machine/repo (`containerTag` concept):
+`<project>_<hostname>` to prevent cross-project contamination.
 
-```typescript
-interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-}
-```
+### 7.6 Compaction
+Roll-up old items into stable summaries:
+- keep references to original IDs
+- never rewrite meaning
+- never compact evidence (only planning context)
 
-### Error Handling
+### 7.7 Codebase indexing
+Maintain a "CodebaseIndex" memory item:
+- repo hash, module map, key entry points, "do-not-touch" list, conventions
 
-```typescript
-try {
-  const result = await operation()
-  return { success: true, data: result }
-} catch (error) {
-  console.error('Operation failed:', error)
-  return { success: false, error: 'User-friendly message' }
-}
-```
+## 8) Data + modeling guardrails (meta / MASEM / SHAP / global data)
+### 8.1 Global datasets (WHO / World Bank)
+- version datasets + codebooks; record retrieval date + checksum
+- leakage prevention: time splits / country splits where appropriate
+- missingness policy explicit (imputation strategy, sensitivity runs)
+- fairness warning when features can proxy sensitive attributes
 
-## Environment Variables
+### 8.2 Meta-analysis methods
+Prefer modular, testable units:
+- effect size calculators (RR/OR/HR/MD/SMD/Fisher-z)
+- heterogeneity (tau²/I²/PI) + influence/leave-one-out
+- publication bias checks clearly labelled exploratory unless validated
+- MASEM: stage-1 pooled correlations + stage-2 SEM; guard non-PD matrices
 
-```bash
-# Required
-DATABASE_URL=
-API_KEY=
+## 9) Coding quality (craftsmanship)
+- small files, clear names, no hidden side effects
+- strong typing where possible; explicit error handling
+- lint + format + tests mandatory before ship
+- design for maintainability on miniPC clusters (resource-aware defaults)
 
-# Optional
-DEBUG=false
-```
+## 10) Shipping ritual ("SHIP")
+When I say **SHIP**:
+1) run tests
+2) run a demo pipeline on fixtures (no network/API keys)
+3) produce a TruthCert bundle (PASS or REJECT with reasons)
+4) write short release note (what changed + how verified)
+5) update `.claude/rules/lessons.md` with any new mistake-prevention rule
 
-## Available Commands
+## 11) Default assumptions (unless I override)
+- Python-first for pipelines/services; browser-first for interactive apps where feasible
+- offline-first tests + fixtures
+- OA-only ingestion
+- memory FULL for active repos, LITE for stable ones, OFF for public demo repos
 
-- `/tdd` - Test-driven development workflow
-- `/plan` - Create implementation plan
-- `/code-review` - Review code quality
-- `/build-fix` - Fix build errors
-
-## Git Workflow
-
-- Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`
-- Never commit to main directly
-- PRs require review
-- All tests must pass before merge
+(End)
