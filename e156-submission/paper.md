@@ -12,7 +12,7 @@ Type: methods
 Primary estimand: documentation proportion
 App: everything-claude-code E156 Capsule v1.0
 Data: Repository inventory with 8 source files, 6 test files, 53 documents, and 0 assets.
-Code: https://github.com/affaan-m/everything-claude-code
+Code: https://github.com/mahmood726-cyber/everything-claude-code
 Version: 1.0
 Certainty: moderate
 Validation: DRAFT
@@ -22,7 +22,3 @@ References
 1. Borenstein M, Hedges LV, Higgins JPT, Rothstein HR. Introduction to Meta-Analysis. 2nd ed. Wiley; 2021.
 2. Higgins JPT, Thompson SG, Deeks JJ, Altman DG. Measuring inconsistency in meta-analyses. BMJ. 2003;327(7414):557-560.
 3. Cochrane Handbook for Systematic Reviews of Interventions. Version 6.4. Cochrane; 2023.
-
-AI Disclosure
-
-This work represents a compiler-generated evidence micro-publication (i.e., a structured, pipeline-based synthesis output). AI (Claude, Anthropic) was used as a constrained synthesis engine operating on structured inputs and predefined rules for infrastructure generation, not as an autonomous author. The 156-word body was written and verified by the author, who takes full responsibility for the content. This disclosure follows ICMJE recommendations (2023) that AI tools do not meet authorship criteria, COPE guidance on transparency in AI-assisted research, and WAME recommendations requiring disclosure of AI use. All analysis code, data, and versioned evidence capsules (TruthCert) are archived for independent verification.
