@@ -1,6 +1,6 @@
 Mahmood Ahmad
 Tahir Heart Institute
-author@example.com
+mahmood.ahmad2@nhs.net
 
 Everything Claude Code: Reproducibility Capsule for a Claude Plugin Stack
 
