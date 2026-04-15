@@ -4,14 +4,14 @@ author@example.com
 
 Protocol: Everything Claude Code: Reproducibility Capsule for a Claude Plugin Stack
 
-This protocol describes the planned evidence synthesis for Everything Claude Code: Reproducibility Capsule for a Claude, targeting transparent, reproducible estimation of documentation proportion in a versioned analytical workflow. Eligible inputs include published studies and validated computational outputs addressing the target estimand, with no restrictions on publication year, language, or clinical domain. Searches will cover PubMed, Embase, and the Cochrane Central Register using structured strategies, reference-list screening, and duplicate full-text review before extraction. The primary analysis will estimate documentation proportion using restricted maximum likelihood random-effects meta-analysis, reporting 95 percent confidence intervals, prediction intervals, and prespecified model checks. Heterogeneity will be summarised using I-squared and tau-squared, with sensitivity analyses across variance estimators, exclusion scenarios, and leave-one-out patterns. Analysis code will be versioned and archived at https://github.com/affaan-m/everything-claude-code, and reporting will follow PRISMA 2020 guidance to support independent verification and reuse. Anticipated limitations include publication bias, clinical heterogeneity, sparse data in some settings, and the constraints of aggregate-level evidence synthesis.
+This protocol describes the planned evidence synthesis for Everything Claude Code: Reproducibility Capsule for a Claude, targeting transparent, reproducible estimation of documentation proportion in a versioned analytical workflow. Eligible inputs include published studies and validated computational outputs addressing the target estimand, with no restrictions on publication year, language, or clinical domain. Searches will cover PubMed, Embase, and the Cochrane Central Register using structured strategies, reference-list screening, and duplicate full-text review before extraction. The primary analysis will estimate documentation proportion using restricted maximum likelihood random-effects meta-analysis, reporting 95 percent confidence intervals, prediction intervals, and prespecified model checks. Heterogeneity will be summarised using I-squared and tau-squared, with sensitivity analyses across variance estimators, exclusion scenarios, and leave-one-out patterns. Analysis code will be versioned and archived at https://github.com/mahmood726-cyber/everything-claude-code, and reporting will follow PRISMA 2020 guidance to support independent verification and reuse. Anticipated limitations include publication bias, clinical heterogeneity, sparse data in some settings, and the constraints of aggregate-level evidence synthesis.
 
 Outside Notes
 
 Type: protocol
 Primary estimand: documentation proportion
 App: everything-claude-code E156 Capsule v1.0
-Code: https://github.com/affaan-m/everything-claude-code
+Code: https://github.com/mahmood726-cyber/everything-claude-code
 Date: 2026-03-28
 Validation: DRAFT
 
