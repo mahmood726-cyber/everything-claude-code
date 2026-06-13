@@ -35,7 +35,8 @@ async function main() {
   // Read existing count or start at 1
   const existing = readFile(counterFile);
   if (existing) {
-    count = parseInt(existing.trim(), 10) + 1;
+    const parsed = parseInt(existing.trim(), 10);
+    count = (isNaN(parsed) ? 0 : parsed) + 1;
   }
 
   // Save updated count
