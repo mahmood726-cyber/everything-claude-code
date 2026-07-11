@@ -161,6 +161,25 @@ function runTests() {
     }
   })) passed++; else failed++;
 
+  if (test('countInFile counts all occurrences with a non-global RegExp', () => {
+    const testFile = path.join(utils.getTempDir(), `utils-test-${Date.now()}.txt`);
+    try {
+      utils.writeFile(testFile, 'foo foo foo');
+      // A non-global RegExp must still count every occurrence, not just the first.
+      assert.strictEqual(utils.countInFile(testFile, /foo/), 3);
+      // Capture groups must not inflate/deflate the count via match() array shape.
+      assert.strictEqual(utils.countInFile(testFile, /(f)(o)o/), 3);
+      // String patterns count all occurrences too.
+      assert.strictEqual(utils.countInFile(testFile, 'foo'), 3);
+    } finally {
+      fs.unlinkSync(testFile);
+    }
+  })) passed++; else failed++;
+
+  if (test('countInFile returns 0 for a non-existent file', () => {
+    assert.strictEqual(utils.countInFile('/non/existent/file.txt', 'x'), 0);
+  })) passed++; else failed++;
+
   if (test('grepFile finds matching lines', () => {
     const testFile = path.join(utils.getTempDir(), `utils-test-${Date.now()}.txt`);
     try {
